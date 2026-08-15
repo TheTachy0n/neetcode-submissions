@@ -1,0 +1,31 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:   
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        '''
+        - define a same tree function, like the previous problem
+        - if not root -> False
+        - is sametree(root, subroot) - >true
+        - return (self.isSubtree(root.left,subroot) or the same for the right side)
+        '''
+
+        def sametree(a,b):
+            if not a and not b:
+                return True
+            if not a or not b:
+                return False
+            if a.val != b.val:
+                return False
+            return (sametree(a.left,b.left) and sametree(a.right,b.right))
+
+        if not root:
+            return False
+        if sametree(root,subRoot):
+            return True
+        
+        return (self.isSubtree(root.left,subRoot) or self.isSubtree(root.right,subRoot))
